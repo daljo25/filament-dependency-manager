@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Daljo25\FilamentDependencyManager\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class FilamentDependencyManagerCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'filament-dependency-manager';
 
     public $description = 'My command';
 
