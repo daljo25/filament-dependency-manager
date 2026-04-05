@@ -4,6 +4,8 @@ namespace Daljo25\FilamentDependencyManager;
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;
+use Daljo25\FilamentDependencyManager\Pages\DependencyManagerPage;
+use Daljo25\FilamentDependencyManager\Pages\NpmDependencyManagerPage;
 
 class FilamentDependencyManagerPlugin implements Plugin
 {
@@ -14,7 +16,10 @@ class FilamentDependencyManagerPlugin implements Plugin
 
     public function register(Panel $panel): void
     {
-        //
+        $panel->pages([
+            DependencyManagerPage::class,
+            NpmDependencyManagerPage::class,
+        ]);
     }
 
     public function boot(Panel $panel): void
@@ -25,13 +30,5 @@ class FilamentDependencyManagerPlugin implements Plugin
     public static function make(): static
     {
         return app(static::class);
-    }
-
-    public static function get(): static
-    {
-        /** @var static $plugin */
-        $plugin = filament(app(static::class)->getId());
-
-        return $plugin;
     }
 }

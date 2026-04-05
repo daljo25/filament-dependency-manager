@@ -1,5 +1,3 @@
 <?php
 
-use Daljo25\FilamentDependencyManager\Tests\TestCase;
-
-uses(TestCase::class)->in(__DIR__);
+uses(Daljo25\FilamentDependencyManager\Tests\TestCase::class)->in('Feature');
