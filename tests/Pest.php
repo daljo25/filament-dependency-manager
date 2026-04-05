@@ -1,3 +1,5 @@
 <?php
 
-uses(Daljo25\FilamentDependencyManager\Tests\TestCase::class)->in('Feature');
+use Daljo25\FilamentDependencyManager\Tests\TestCase;
+
+uses(TestCase::class)->in('Feature');

@@ -9,12 +9,12 @@ return [
     ],
 
     'composer' => [
-        'title'            => 'Composer Dependencies',
+        'title' => 'Composer Dependencies',
         'navigation_label' => 'Composer',
     ],
 
     'npm' => [
-        'title'            => 'NPM Dependencies',
+        'title' => 'NPM Dependencies',
         'navigation_label' => 'NPM',
         'columns' => [
             'type' => 'Type',
@@ -23,33 +23,33 @@ return [
             'view_npm' => 'View on NPM',
         ],
         'empty' => [
-            'heading'     => 'All up to date 🎉',
+            'heading' => 'All up to date 🎉',
             'description' => 'No NPM updates available.',
         ],
     ],
 
     'table' => [
         'columns' => [
-            'package'      => 'Package',
-            'installed'    => 'Installed',
-            'latest'       => 'Latest',
-            'update_type'  => 'Update Type',
+            'package' => 'Package',
+            'installed' => 'Installed',
+            'latest' => 'Latest',
+            'update_type' => 'Update Type',
             'last_updated' => 'Last Updated',
-            'description'  => 'Description',
+            'description' => 'Description',
         ],
         'status' => [
-            'minor'      => 'Minor / Patch',
-            'major'      => 'Major',
+            'minor' => 'Minor / Patch',
+            'major' => 'Major',
             'up_to_date' => 'Up to date',
         ],
         'actions' => [
             'copy_command' => 'Copy Command',
             'copy_success' => 'Command copied to clipboard!',
-            'changelog'    => 'Changelog',
-            'refresh'      => 'Refresh',
+            'changelog' => 'Changelog',
+            'refresh' => 'Refresh',
         ],
         'empty' => [
-            'heading'     => 'All up to date 🎉',
+            'heading' => 'All up to date 🎉',
             'description' => 'No updates available.',
         ],
     ],

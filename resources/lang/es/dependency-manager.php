@@ -9,12 +9,12 @@ return [
     ],
 
     'composer' => [
-        'title'            => 'Dependencias Composer',
+        'title' => 'Dependencias Composer',
         'navigation_label' => 'Composer',
     ],
 
     'npm' => [
-        'title'            => 'Dependencias NPM',
+        'title' => 'Dependencias NPM',
         'navigation_label' => 'NPM',
         'columns' => [
             'type' => 'Tipo',
@@ -23,33 +23,33 @@ return [
             'view_npm' => 'Ver en NPM',
         ],
         'empty' => [
-            'heading'     => 'Todo al día 🎉',
+            'heading' => 'Todo al día 🎉',
             'description' => 'No hay actualizaciones de NPM disponibles.',
         ],
     ],
 
     'table' => [
         'columns' => [
-            'package'      => 'Paquete',
-            'installed'    => 'Instalado',
-            'latest'       => 'Última versión',
-            'update_type'  => 'Tipo de actualización',
+            'package' => 'Paquete',
+            'installed' => 'Instalado',
+            'latest' => 'Última versión',
+            'update_type' => 'Tipo de actualización',
             'last_updated' => 'Última actualización',
-            'description'  => 'Descripción',
+            'description' => 'Descripción',
         ],
         'status' => [
-            'minor'      => 'Menor / Parche',
-            'major'      => 'Mayor',
+            'minor' => 'Menor / Parche',
+            'major' => 'Mayor',
             'up_to_date' => 'Al día',
         ],
         'actions' => [
             'copy_command' => 'Copiar comando',
             'copy_success' => '¡Comando copiado al portapapeles!',
-            'changelog'    => 'Changelog',
-            'refresh'      => 'Actualizar',
+            'changelog' => 'Changelog',
+            'refresh' => 'Actualizar',
         ],
         'empty' => [
-            'heading'     => 'Todo al día 🎉',
+            'heading' => 'Todo al día 🎉',
             'description' => 'No hay actualizaciones disponibles.',
         ],
     ],

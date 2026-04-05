@@ -2,11 +2,11 @@
 
 namespace Daljo25\FilamentDependencyManager;
 
+use Daljo25\FilamentDependencyManager\Commands\InstallCommand;
+use Daljo25\FilamentDependencyManager\Testing\TestsFilamentDependencyManager;
 use Livewire\Features\SupportTesting\Testable;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Daljo25\FilamentDependencyManager\Testing\TestsFilamentDependencyManager;
-use Daljo25\FilamentDependencyManager\Commands\InstallCommand;
 
 class FilamentDependencyManagerServiceProvider extends PackageServiceProvider
 {

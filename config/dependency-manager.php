@@ -31,19 +31,19 @@ return [
      * Composer page specific configuration.
      */
     'composer' => [
-        'title'            => null,
+        'title' => null,
         'navigation_label' => null,
-        'icon'             => null, // e.g. 'heroicon-o-code-bracket'
-        'sort'             => 1,
+        'icon' => null, // e.g. 'heroicon-o-code-bracket'
+        'sort' => 1,
     ],
 
     /*
      * NPM page specific configuration.
      */
     'npm' => [
-        'title'            => null,
+        'title' => null,
         'navigation_label' => null,
-        'icon'             => null, // e.g. 'heroicon-o-cube'
-        'sort'             => 2,
+        'icon' => null, // e.g. 'heroicon-o-cube'
+        'sort' => 2,
     ],
 ];

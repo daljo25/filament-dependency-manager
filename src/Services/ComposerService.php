@@ -9,11 +9,12 @@ use Symfony\Component\Process\Process;
 class ComposerService
 {
     protected string $composerBinary;
+
     protected string $phpBinary;
 
     public function __construct()
     {
-        $finder = new ExecutableFinder();
+        $finder = new ExecutableFinder;
 
         $this->composerBinary = config('dependency-manager.composer_binary')
             ?? $finder->find('composer')
@@ -32,8 +33,8 @@ class ComposerService
             );
 
             $process->setEnv([
-                'PATH'          => dirname($this->phpBinary) . ':/usr/local/bin:/usr/bin:/bin',
-                'HOME'          => getenv('HOME') ?: '/root',
+                'PATH' => dirname($this->phpBinary) . ':/usr/local/bin:/usr/bin:/bin',
+                'HOME' => getenv('HOME') ?: '/root',
                 'COMPOSER_HOME' => getenv('HOME') . '/.composer',
             ]);
 
@@ -54,6 +55,7 @@ class ComposerService
     {
         Cache::forget('filament-dependency-manager:composer-outdated');
     }
+
     public function getRepositoryUrl(array $record): ?string
     {
         $source = $record['source'] ?? null;

@@ -4,6 +4,7 @@ namespace Daljo25\FilamentDependencyManager\Pages;
 
 use BackedEnum;
 use Carbon\Carbon;
+use Daljo25\FilamentDependencyManager\Services\ComposerService;
 use Filament\Actions\Action;
 use Filament\Pages\Page;
 use Filament\Support\Icons\Heroicon;
@@ -12,8 +13,6 @@ use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 use Illuminate\Support\Collection;
-use UnitEnum;
-use Daljo25\FilamentDependencyManager\Services\ComposerService;
 
 class DependencyManagerPage extends Page implements HasTable
 {
@@ -21,7 +20,9 @@ class DependencyManagerPage extends Page implements HasTable
 
     // Page configuration
     protected static ?string $slug = 'composer-manager';
+
     protected static ?int $navigationSort = 1;
+
     protected string $view = 'filament-dependency-manager::pages.dependency-manager';
 
     public function getTitle(): string
@@ -42,7 +43,7 @@ class DependencyManagerPage extends Page implements HasTable
             ?? __('filament-dependency-manager::dependency-manager.navigation.group');
     }
 
-    public static function getNavigationIcon(): string|BackedEnum|null
+    public static function getNavigationIcon(): string | BackedEnum | null
     {
         return config('dependency-manager.composer.icon')
             ?? Heroicon::OutlinedCodeBracketSquare;
@@ -60,17 +61,16 @@ class DependencyManagerPage extends Page implements HasTable
         return 'warning';
     }
 
-
     // Table definition
     public function table(Table $table): Table
     {
         return $table
-            ->records(fn() => $this->getPackagesCollection())
+            ->records(fn () => $this->getPackagesCollection())
             ->columns([
                 TextColumn::make('name')
                     ->label(__('filament-dependency-manager::dependency-manager.table.columns.package'))
                     ->weight('bold')
-                    ->url(fn($record) => app(ComposerService::class)->getRepositoryUrl($record), true),
+                    ->url(fn ($record) => app(ComposerService::class)->getRepositoryUrl($record), true),
 
                 TextColumn::make('version')
                     ->label(__('filament-dependency-manager::dependency-manager.table.columns.installed'))
@@ -85,21 +85,21 @@ class DependencyManagerPage extends Page implements HasTable
                 TextColumn::make('latest-status')
                     ->label(__('filament-dependency-manager::dependency-manager.table.columns.update_type'))
                     ->badge()
-                    ->color(fn($state) => match ($state) {
+                    ->color(fn ($state) => match ($state) {
                         'semver-safe-update' => 'warning',
-                        'update-possible'    => 'danger',
-                        default              => 'success',
+                        'update-possible' => 'danger',
+                        default => 'success',
                     })
-                    ->formatStateUsing(fn($state) => match ($state) {
+                    ->formatStateUsing(fn ($state) => match ($state) {
                         'semver-safe-update' => __('filament-dependency-manager::dependency-manager.table.status.minor'),
-                        'update-possible'    => __('filament-dependency-manager::dependency-manager.table.status.major'),
-                        default              => __('filament-dependency-manager::dependency-manager.table.status.up_to_date'),
+                        'update-possible' => __('filament-dependency-manager::dependency-manager.table.status.major'),
+                        default => __('filament-dependency-manager::dependency-manager.table.status.up_to_date'),
                     }),
 
                 TextColumn::make('latest-release-date')
                     ->label(__('filament-dependency-manager::dependency-manager.table.columns.last_updated'))
                     ->formatStateUsing(
-                        fn($state) => $state
+                        fn ($state) => $state
                             ? Carbon::parse($state)->diffForHumans()
                             : '—'
                     ),
@@ -107,7 +107,7 @@ class DependencyManagerPage extends Page implements HasTable
                 TextColumn::make('description')
                     ->label(__('filament-dependency-manager::dependency-manager.table.columns.description'))
                     ->limit(50)
-                    ->tooltip(fn($state) => $state)
+                    ->tooltip(fn ($state) => $state)
                     ->color('gray'),
             ])
             ->recordActions([
@@ -125,7 +125,7 @@ class DependencyManagerPage extends Page implements HasTable
                     ->label(__('filament-dependency-manager::dependency-manager.table.actions.changelog'))
                     ->icon('heroicon-o-document-text')
                     ->color('info')
-                    ->url(fn($record) => app(ComposerService::class)->getReleaseUrl($record), true)
+                    ->url(fn ($record) => app(ComposerService::class)->getReleaseUrl($record), true)
                     ->openUrlInNewTab(),
             ])
             ->headerActions([

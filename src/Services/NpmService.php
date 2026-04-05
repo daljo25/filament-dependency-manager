@@ -9,12 +9,14 @@ use Symfony\Component\Process\Process;
 class NpmService
 {
     protected string $binary;
+
     protected string $phpBinary;
+
     protected string $client;
 
     public function __construct()
     {
-        $finder = new ExecutableFinder();
+        $finder = new ExecutableFinder;
 
         $this->client = config('dependency-manager.npm_client', 'npm');
 
@@ -67,8 +69,8 @@ class NpmService
     protected function buildCommand(): array
     {
         return match ($this->client) {
-            'pnpm'  => [$this->binary, 'outdated', '--format', 'json'],
-            'yarn'  => [$this->binary, 'outdated', '--json'],
+            'pnpm' => [$this->binary, 'outdated', '--format', 'json'],
+            'yarn' => [$this->binary, 'outdated', '--json'],
             default => [$this->binary, 'outdated', '--json'],
         };
     }
@@ -78,16 +80,16 @@ class NpmService
         return collect($output)
             ->map(function (array $package, string $name) {
                 $current = $package['current'] ?? '—';
-                $latest  = $package['latest'] ?? $package['wanted'] ?? '—';
+                $latest = $package['latest'] ?? $package['wanted'] ?? '—';
 
                 return [
-                    'name'          => $name,
-                    'version'       => $current,
-                    'latest'        => $latest,
+                    'name' => $name,
+                    'version' => $current,
+                    'latest' => $latest,
                     'latest-status' => $this->resolveStatus($current, $latest),
-                    'type'          => $package['type'] ?? 'devDependencies',
-                    'source'        => null,
-                    'description'   => $package['location'] ?? null,
+                    'type' => $package['type'] ?? 'devDependencies',
+                    'source' => null,
+                    'description' => $package['location'] ?? null,
                 ];
             })
             ->values()
@@ -101,7 +103,7 @@ class NpmService
         }
 
         $currentParts = explode('.', ltrim($current, '^~v'));
-        $latestParts  = explode('.', ltrim($latest, '^~v'));
+        $latestParts = explode('.', ltrim($latest, '^~v'));
 
         if (($currentParts[0] ?? 0) !== ($latestParts[0] ?? 0)) {
             return 'update-possible'; // major

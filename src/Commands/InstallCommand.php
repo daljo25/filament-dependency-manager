@@ -3,6 +3,7 @@
 namespace Daljo25\FilamentDependencyManager\Commands;
 
 use Illuminate\Console\Command;
+
 use function Laravel\Prompts\confirm;
 
 class InstallCommand extends Command
@@ -65,10 +66,10 @@ class InstallCommand extends Command
                 $url = 'https://github.com/daljo25/filament-dependency-manager';
 
                 match (PHP_OS_FAMILY) {
-                    'Darwin'  => exec("open {$url}"),
-                    'Linux'   => exec("xdg-open {$url}"),
+                    'Darwin' => exec("open {$url}"),
+                    'Linux' => exec("xdg-open {$url}"),
                     'Windows' => exec("start {$url}"),
-                    default   => $this->line("  <fg=gray>→ Visit: {$url}</>"),
+                    default => $this->line("  <fg=gray>→ Visit: {$url}</>"),
                 };
 
                 $this->line('  <fg=yellow>★</> Thank you for your support!');

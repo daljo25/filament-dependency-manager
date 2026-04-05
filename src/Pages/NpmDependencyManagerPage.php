@@ -3,6 +3,8 @@
 namespace Daljo25\FilamentDependencyManager\Pages;
 
 use BackedEnum;
+use Daljo25\FilamentDependencyManager\Services\NpmService;
+use Filament\Actions\Action;
 use Filament\Pages\Page;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
@@ -10,8 +12,6 @@ use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 use Illuminate\Support\Collection;
-use Daljo25\FilamentDependencyManager\Clusters\DependencyManagerCluster;
-use Daljo25\FilamentDependencyManager\Services\NpmService;
 
 class NpmDependencyManagerPage extends Page implements HasTable
 {
@@ -19,7 +19,9 @@ class NpmDependencyManagerPage extends Page implements HasTable
 
     // Page configuration
     protected static ?string $slug = 'npm-manager';
+
     protected static ?int $navigationSort = 2;
+
     protected string $view = 'filament-dependency-manager::pages.npm-dependency-manager';
 
     public function getTitle(): string
@@ -40,7 +42,7 @@ class NpmDependencyManagerPage extends Page implements HasTable
             ?? __('filament-dependency-manager::dependency-manager.navigation.group');
     }
 
-    public static function getNavigationIcon(): string|BackedEnum|null
+    public static function getNavigationIcon(): string | BackedEnum | null
     {
         return config('dependency-manager.npm.icon')
             ?? Heroicon::OutlinedCube;
@@ -58,12 +60,11 @@ class NpmDependencyManagerPage extends Page implements HasTable
         return 'warning';
     }
 
-
     // Table definition
     public function table(Table $table): Table
     {
         return $table
-            ->records(fn() => $this->getPackagesCollection())
+            ->records(fn () => $this->getPackagesCollection())
             ->columns([
                 TextColumn::make('name')
                     ->label(__('filament-dependency-manager::dependency-manager.table.columns.package'))
@@ -72,10 +73,10 @@ class NpmDependencyManagerPage extends Page implements HasTable
                 TextColumn::make('type')
                     ->label(__('filament-dependency-manager::dependency-manager.npm.columns.type'))
                     ->badge()
-                    ->color(fn($state) => match ($state) {
+                    ->color(fn ($state) => match ($state) {
                         'devDependencies' => 'gray',
-                        'dependencies'    => 'info',
-                        default           => 'gray',
+                        'dependencies' => 'info',
+                        default => 'gray',
                     }),
 
                 TextColumn::make('version')
@@ -91,19 +92,19 @@ class NpmDependencyManagerPage extends Page implements HasTable
                 TextColumn::make('latest-status')
                     ->label(__('filament-dependency-manager::dependency-manager.table.columns.update_type'))
                     ->badge()
-                    ->color(fn($state) => match ($state) {
+                    ->color(fn ($state) => match ($state) {
                         'semver-safe-update' => 'warning',
-                        'update-possible'    => 'danger',
-                        default              => 'success',
+                        'update-possible' => 'danger',
+                        default => 'success',
                     })
-                    ->formatStateUsing(fn($state) => match ($state) {
+                    ->formatStateUsing(fn ($state) => match ($state) {
                         'semver-safe-update' => __('filament-dependency-manager::dependency-manager.table.status.minor'),
-                        'update-possible'    => __('filament-dependency-manager::dependency-manager.table.status.major'),
-                        default              => __('filament-dependency-manager::dependency-manager.table.status.up_to_date'),
+                        'update-possible' => __('filament-dependency-manager::dependency-manager.table.status.major'),
+                        default => __('filament-dependency-manager::dependency-manager.table.status.up_to_date'),
                     }),
             ])
             ->recordActions([
-                \Filament\Actions\Action::make('copy_command')
+                Action::make('copy_command')
                     ->label(__('filament-dependency-manager::dependency-manager.table.actions.copy_command'))
                     ->icon('heroicon-o-clipboard-document')
                     ->color('warning')
@@ -117,17 +118,17 @@ class NpmDependencyManagerPage extends Page implements HasTable
                         $livewire->js("navigator.clipboard.writeText('{$command}')");
                     }),
 
-                \Filament\Actions\Action::make('npm_page')
+                Action::make('npm_page')
                     ->label(__('filament-dependency-manager::dependency-manager.npm.actions.view_npm'))
                     ->icon('heroicon-o-arrow-top-right-on-square')
                     ->color('info')
-                    ->url(fn($record) => "https://www.npmjs.com/package/{$record['name']}", true),
+                    ->url(fn ($record) => "https://www.npmjs.com/package/{$record['name']}", true),
             ])
             ->headerActions([
-                \Filament\Actions\Action::make('refresh')
+                Action::make('refresh')
                     ->label(__('filament-dependency-manager::dependency-manager.table.actions.refresh'))
                     ->icon('heroicon-o-arrow-path')
-                    ->action(fn() => app(NpmService::class)->clearCache()),
+                    ->action(fn () => app(NpmService::class)->clearCache()),
             ])
             ->emptyStateHeading(__('filament-dependency-manager::dependency-manager.npm.empty.heading'))
             ->emptyStateDescription(__('filament-dependency-manager::dependency-manager.npm.empty.description'))

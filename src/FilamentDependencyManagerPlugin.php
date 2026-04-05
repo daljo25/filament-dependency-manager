@@ -2,10 +2,10 @@
 
 namespace Daljo25\FilamentDependencyManager;
 
-use Filament\Contracts\Plugin;
-use Filament\Panel;
 use Daljo25\FilamentDependencyManager\Pages\DependencyManagerPage;
 use Daljo25\FilamentDependencyManager\Pages\NpmDependencyManagerPage;
+use Filament\Contracts\Plugin;
+use Filament\Panel;
 
 class FilamentDependencyManagerPlugin implements Plugin
 {
