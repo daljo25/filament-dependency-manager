@@ -11,12 +11,12 @@ class ComposerPackage extends Model
     use Sushi;
 
     protected $schema = [
-        'name'                 => 'string',
-        'version'              => 'string',
-        'latest'               => 'string',
-        'latest-status'        => 'string',
-        'latest-release-date'  => 'string',
-        'description'          => 'string',
+        'name' => 'string',
+        'version' => 'string',
+        'latest' => 'string',
+        'latest-status' => 'string',
+        'latest-release-date' => 'string',
+        'description' => 'string',
     ];
 
     public function getRows(): array
