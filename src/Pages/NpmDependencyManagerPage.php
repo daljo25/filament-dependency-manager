@@ -4,14 +4,14 @@ namespace Daljo25\FilamentDependencyManager\Pages;
 
 use Daljo25\FilamentDependencyManager\Models\NpmPackage;
 use Daljo25\FilamentDependencyManager\Services\NpmService;
-use Filament\Pages\Page;
 use Filament\Actions\Action;
+use Filament\Notifications\Notification;
+use Filament\Pages\Page;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
-use Filament\Tables\Table;
-use Filament\Notifications\Notification;
 use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 
 class NpmDependencyManagerPage extends Page implements HasTable
@@ -19,7 +19,9 @@ class NpmDependencyManagerPage extends Page implements HasTable
     use InteractsWithTable;
 
     protected static ?string $slug = 'npm-manager';
+
     protected static ?int $navigationSort = 2;
+
     protected string $view = 'filament-dependency-manager::pages.npm-dependency-manager';
 
     public function getTitle(): string
@@ -49,6 +51,7 @@ class NpmDependencyManagerPage extends Page implements HasTable
     public static function getNavigationBadge(): ?string
     {
         $count = count(app(NpmService::class)->getOutdatedPackages());
+
         return $count > 0 ? (string) $count : null;
     }
 
@@ -71,10 +74,10 @@ class NpmDependencyManagerPage extends Page implements HasTable
                 TextColumn::make('type')
                     ->label(__('filament-dependency-manager::dependency-manager.npm.columns.type'))
                     ->badge()
-                    ->color(fn(string $state) => match ($state) {
-                        'dependencies'    => 'info',
+                    ->color(fn (string $state) => match ($state) {
+                        'dependencies' => 'info',
                         'devDependencies' => 'gray',
-                        default           => 'gray',
+                        default => 'gray',
                     }),
 
                 TextColumn::make('version')
@@ -91,15 +94,15 @@ class NpmDependencyManagerPage extends Page implements HasTable
                     ->label(__('filament-dependency-manager::dependency-manager.table.columns.update_type'))
                     ->badge()
                     ->sortable()
-                    ->color(fn(string $state) => match ($state) {
+                    ->color(fn (string $state) => match ($state) {
                         'semver-safe-update' => 'warning',
-                        'update-possible'    => 'danger',
-                        default              => 'success',
+                        'update-possible' => 'danger',
+                        default => 'success',
                     })
-                    ->formatStateUsing(fn(string $state) => match ($state) {
+                    ->formatStateUsing(fn (string $state) => match ($state) {
                         'semver-safe-update' => __('filament-dependency-manager::dependency-manager.table.status.minor'),
-                        'update-possible'    => __('filament-dependency-manager::dependency-manager.table.status.major'),
-                        default              => __('filament-dependency-manager::dependency-manager.table.status.up_to_date'),
+                        'update-possible' => __('filament-dependency-manager::dependency-manager.table.status.major'),
+                        default => __('filament-dependency-manager::dependency-manager.table.status.up_to_date'),
                     }),
             ])
             ->actions([
@@ -110,8 +113,8 @@ class NpmDependencyManagerPage extends Page implements HasTable
                     ->action(function (NpmPackage $record) {
                         $client = config('dependency-manager.npm_client', 'npm');
                         $command = match ($client) {
-                            'yarn'  => "yarn add {$record->name}@{$record->latest}",
-                            'pnpm'  => "pnpm add {$record->name}@{$record->latest}",
+                            'yarn' => "yarn add {$record->name}@{$record->latest}",
+                            'pnpm' => "pnpm add {$record->name}@{$record->latest}",
                             default => "npm install {$record->name}@{$record->latest}",
                         };
                         $this->js("navigator.clipboard.writeText('{$command}')");
@@ -126,7 +129,7 @@ class NpmDependencyManagerPage extends Page implements HasTable
                     ->label(__('filament-dependency-manager::dependency-manager.npm.actions.view_npm'))
                     ->icon('heroicon-o-arrow-top-right-on-square')
                     ->color('info')
-                    ->url(fn(NpmPackage $record) => "https://www.npmjs.com/package/{$record->name}")
+                    ->url(fn (NpmPackage $record) => "https://www.npmjs.com/package/{$record->name}")
                     ->openUrlInNewTab(),
             ])
             ->headerActions([
@@ -143,11 +146,10 @@ class NpmDependencyManagerPage extends Page implements HasTable
                     ->label(__('filament-dependency-manager::dependency-manager.table.columns.update_type'))
                     ->options([
                         'semver-safe-update' => __('filament-dependency-manager::dependency-manager.table.status.minor'),
-                        'update-possible'    => __('filament-dependency-manager::dependency-manager.table.status.major'),
+                        'update-possible' => __('filament-dependency-manager::dependency-manager.table.status.major'),
                     ])
                     ->query(
-                        fn(Builder $query, array $data) =>
-                        $query->when($data['value'] ?? null, fn($q) => $q->where('latest-status', $data['value']))
+                        fn (Builder $query, array $data) => $query->when($data['value'] ?? null, fn ($q) => $q->where('latest-status', $data['value']))
                     ),
             ])
             ->emptyStateHeading(__('filament-dependency-manager::dependency-manager.npm.empty.heading'))

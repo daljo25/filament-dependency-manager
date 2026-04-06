@@ -5,14 +5,14 @@ namespace Daljo25\FilamentDependencyManager\Pages;
 use Carbon\Carbon;
 use Daljo25\FilamentDependencyManager\Models\ComposerPackage;
 use Daljo25\FilamentDependencyManager\Services\ComposerService;
-use Filament\Pages\Page;
 use Filament\Actions\Action;
+use Filament\Notifications\Notification;
+use Filament\Pages\Page;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
-use Filament\Tables\Table;
-use Filament\Notifications\Notification;
 use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 
 class DependencyManagerPage extends Page implements HasTable
@@ -20,7 +20,9 @@ class DependencyManagerPage extends Page implements HasTable
     use InteractsWithTable;
 
     protected static ?string $slug = 'composer-manager';
+
     protected static ?int $navigationSort = 1;
+
     protected string $view = 'filament-dependency-manager::pages.dependency-manager';
 
     public function getTitle(): string
@@ -50,6 +52,7 @@ class DependencyManagerPage extends Page implements HasTable
     public static function getNavigationBadge(): ?string
     {
         $count = count(app(ComposerService::class)->getOutdatedPackages());
+
         return $count > 0 ? (string) $count : null;
     }
 
@@ -68,7 +71,7 @@ class DependencyManagerPage extends Page implements HasTable
                     ->weight('bold')
                     ->searchable()
                     ->sortable()
-                    ->url(fn(ComposerPackage $record) => "https://packagist.org/packages/{$record->name}")
+                    ->url(fn (ComposerPackage $record) => "https://packagist.org/packages/{$record->name}")
                     ->openUrlInNewTab(),
 
                 TextColumn::make('version')
@@ -85,27 +88,27 @@ class DependencyManagerPage extends Page implements HasTable
                     ->label(__('filament-dependency-manager::dependency-manager.table.columns.update_type'))
                     ->badge()
                     ->sortable()
-                    ->color(fn(string $state) => match ($state) {
+                    ->color(fn (string $state) => match ($state) {
                         'semver-safe-update' => 'warning',
-                        'update-possible'    => 'danger',
-                        default              => 'success',
+                        'update-possible' => 'danger',
+                        default => 'success',
                     })
-                    ->formatStateUsing(fn(string $state) => match ($state) {
+                    ->formatStateUsing(fn (string $state) => match ($state) {
                         'semver-safe-update' => __('filament-dependency-manager::dependency-manager.table.status.minor'),
-                        'update-possible'    => __('filament-dependency-manager::dependency-manager.table.status.major'),
-                        default              => __('filament-dependency-manager::dependency-manager.table.status.up_to_date'),
+                        'update-possible' => __('filament-dependency-manager::dependency-manager.table.status.major'),
+                        default => __('filament-dependency-manager::dependency-manager.table.status.up_to_date'),
                     }),
 
                 TextColumn::make('latest-release-date')
                     ->label(__('filament-dependency-manager::dependency-manager.table.columns.last_updated'))
                     ->formatStateUsing(
-                        fn($state) => $state ? Carbon::parse($state)->diffForHumans() : '—'
+                        fn ($state) => $state ? Carbon::parse($state)->diffForHumans() : '—'
                     ),
 
                 TextColumn::make('description')
                     ->label(__('filament-dependency-manager::dependency-manager.table.columns.description'))
                     ->limit(50)
-                    ->tooltip(fn($state) => $state)
+                    ->tooltip(fn ($state) => $state)
                     ->color('gray'),
             ])
             ->actions([
@@ -127,7 +130,7 @@ class DependencyManagerPage extends Page implements HasTable
                     ->label(__('filament-dependency-manager::dependency-manager.table.actions.changelog'))
                     ->icon('heroicon-o-document-text')
                     ->color('info')
-                    ->url(fn(ComposerPackage $record) => "https://github.com/{$record->name}/releases")
+                    ->url(fn (ComposerPackage $record) => "https://github.com/{$record->name}/releases")
                     ->openUrlInNewTab(),
             ])
             ->headerActions([
@@ -144,11 +147,10 @@ class DependencyManagerPage extends Page implements HasTable
                     ->label(__('filament-dependency-manager::dependency-manager.table.columns.update_type'))
                     ->options([
                         'semver-safe-update' => __('filament-dependency-manager::dependency-manager.table.status.minor'),
-                        'update-possible'    => __('filament-dependency-manager::dependency-manager.table.status.major'),
+                        'update-possible' => __('filament-dependency-manager::dependency-manager.table.status.major'),
                     ])
                     ->query(
-                        fn(Builder $query, array $data) =>
-                        $query->when($data['value'] ?? null, fn($q) => $q->where('latest-status', $data['value']))
+                        fn (Builder $query, array $data) => $query->when($data['value'] ?? null, fn ($q) => $q->where('latest-status', $data['value']))
                     ),
             ])
             ->emptyStateHeading(__('filament-dependency-manager::dependency-manager.table.empty.heading'))
