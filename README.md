@@ -1,6 +1,6 @@
 # Filament Dependency Manager
 
-![Filament Dependency Manager](art/Filament-Dependency-Manager.webp)
+<img src="art/Filament-Dependency-Manager.webp" alt="Filament Dependency Manager" class="filament-hidden">
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/daljo25/filament-dependency-manager.svg?style=flat-square)](https://packagist.org/packages/daljo25/filament-dependency-manager)
 [![Total Downloads](https://img.shields.io/packagist/dt/daljo25/filament-dependency-manager.svg?style=flat-square)](https://packagist.org/packages/daljo25/filament-dependency-manager)
