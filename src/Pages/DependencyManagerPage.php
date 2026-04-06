@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Daljo25\FilamentDependencyManager\Models\ComposerPackage;
 use Daljo25\FilamentDependencyManager\Services\ComposerService;
 use Filament\Pages\Page;
-use Filament\Tables\Actions\Action;
+use Filament\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
@@ -21,7 +21,7 @@ class DependencyManagerPage extends Page implements HasTable
 
     protected static ?string $slug = 'composer-manager';
     protected static ?int $navigationSort = 1;
-    protected static string $view = 'filament-dependency-manager::pages.dependency-manager';
+    protected string $view = 'filament-dependency-manager::pages.dependency-manager';
 
     public function getTitle(): string
     {

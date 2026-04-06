@@ -5,7 +5,7 @@ namespace Daljo25\FilamentDependencyManager\Pages;
 use Daljo25\FilamentDependencyManager\Models\NpmPackage;
 use Daljo25\FilamentDependencyManager\Services\NpmService;
 use Filament\Pages\Page;
-use Filament\Tables\Actions\Action;
+use Filament\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
@@ -20,7 +20,7 @@ class NpmDependencyManagerPage extends Page implements HasTable
 
     protected static ?string $slug = 'npm-manager';
     protected static ?int $navigationSort = 2;
-    protected static string $view = 'filament-dependency-manager::pages.npm-dependency-manager';
+    protected string $view = 'filament-dependency-manager::pages.npm-dependency-manager';
 
     public function getTitle(): string
     {
