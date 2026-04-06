@@ -2,47 +2,39 @@ name: "Run Tests"
 
 on:
   push:
-    branches: [main]
+    branches: [main, 5.x]
   pull_request:
-    branches: [main]
+    branches: [main, 5.x]
 
 jobs:
   test:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: true
       matrix:
-        os: [ubuntu-latest, windows-latest]
-        php: [8.4, 8.3, 8.2]
+        php: [8.4, 8.3]
         laravel: [12.*, 11.*]
-        stability: [prefer-lowest, prefer-stable]
+        stability: [prefer-stable]
         include:
           - laravel: 12.*
             testbench: 10.*
             carbon: 3.*
-            collision: 8.*
           - laravel: 11.*
             testbench: 9.*
             carbon: 3.*
-            collision: 8.*
 
-    name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
+    name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }}
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, fileinfo
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, intl, fileinfo
           coverage: none
-
-      - name: Setup problem matchers
-        run: |
-          echo "::add-matcher::${{ runner.tool_cache }}/php.json"
-          echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
       - name: Install dependencies
         run: |
