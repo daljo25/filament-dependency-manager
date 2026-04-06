@@ -11,12 +11,12 @@ class NpmPackage extends Model
     use Sushi;
 
     protected $schema = [
-        'name'          => 'string',
-        'type'          => 'string',
-        'version'       => 'string',
-        'latest'        => 'string',
+        'name' => 'string',
+        'type' => 'string',
+        'version' => 'string',
+        'latest' => 'string',
         'latest-status' => 'string',
-        'description'   => 'string',
+        'description' => 'string',
     ];
 
     public function getRows(): array
