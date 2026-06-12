@@ -22,7 +22,7 @@ class DependencyManagerPage extends Page implements HasTable
     protected static ?string $slug = 'composer-manager';
 
     protected static string $view = 'filament-dependency-manager::pages.dependency-manager';
-    
+
     protected static ?int $navigationSort;
 
     public static function boot(): void
