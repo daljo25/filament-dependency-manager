@@ -20,7 +20,10 @@ class NpmDependencyManagerPage extends Page implements HasTable
 
     protected static ?string $slug = 'npm-manager';
 
-    protected static ?int $navigationSort = 2;
+    public static function getNavigationSort(): ?int
+    {
+        return config('dependency-manager.npm.sort', 2);
+    }
 
     protected string $view = 'filament-dependency-manager::pages.npm-dependency-manager';
 
