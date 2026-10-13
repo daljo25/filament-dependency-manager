@@ -28,7 +28,7 @@ A powerful Filament plugin to monitor outdated **Composer** and **NPM** dependen
 
 - ⚡ **Zero Database**: Uses [Sushi](https://github.com/calebporzio/sushi) to provide a seamless Eloquent experience without migrations.
 - 📦 **Composer Support**: View outdated packages, current vs latest versions, and release dates.
-- 🟢 **NPM Support**: Monitor updates for `dependencies` and `devDependencies`.
+- 🟢 **NPM Support**: Monitor updates for `dependencies` and `devDependencies` (npm, pnpm, yarn and bun).
 - 🔍 **Native Filament Tables**: Supports searching, sorting, and filtering out-of-the-box.
 - 📋 **Quick Copy**: Copy update commands (composer require, npm install, etc.) with a single click.
 - 🌍 **Multilingual**: Full support for English and Spanish.
@@ -104,8 +104,8 @@ If your server uses non-standard paths for binaries (like Laravel Herd or custom
 |---|---|---|
 | `DEPENDENCY_MANAGER_COMPOSER_BIN` | `null` | Full path to `composer` |
 | `DEPENDENCY_MANAGER_PHP_BIN` | `null` | Full path to `php` |
-| `DEPENDENCY_MANAGER_NPM_CLIENT` | `npm` | `npm`, `pnpm`, or `yarn` |
-| `DEPENDENCY_MANAGER_NPM_BINARY` | `null` | Full path to `npm` |
+| `DEPENDENCY_MANAGER_NPM_CLIENT` | `npm` | `npm`, `pnpm`, `yarn` or `bun` |
+| `DEPENDENCY_MANAGER_NPM_BINARY` | `null` | Full path to `npm` / `pnpm` / `yarn` / `bun` |
 
 **Example (macOS with Herd):**
 ```env
