@@ -16,6 +16,10 @@ return [
 
     /*
      * NPM configuration.
+     *
+     * Supported clients: npm, pnpm, yarn, bun.
+     * Note: bun has no native JSON output for `bun outdated`,
+     * so the bun client runs `bunx npm outdated --json` instead.
      */
     'npm_client' => env('DEPENDENCY_MANAGER_NPM_CLIENT', 'npm'),
     'npm_binary' => env('DEPENDENCY_MANAGER_NPM_BINARY', null),

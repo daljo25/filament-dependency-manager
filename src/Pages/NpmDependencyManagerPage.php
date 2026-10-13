@@ -118,6 +118,7 @@ class NpmDependencyManagerPage extends Page implements HasTable
                         $command = match ($client) {
                             'yarn' => "yarn add {$record->name}@{$record->latest}",
                             'pnpm' => "pnpm add {$record->name}@{$record->latest}",
+                            'bun' => "bun add {$record->name}@{$record->latest}",
                             default => "npm install {$record->name}@{$record->latest}",
                         };
                         $this->js("navigator.clipboard.writeText('{$command}')");
