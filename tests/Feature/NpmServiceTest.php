@@ -26,7 +26,7 @@ function callProtected(NpmService $service, string $method, array $args = []): m
 }
 
 it('builds the correct outdated command per client', function (string $client, array $expected) {
-    $service = npmServiceForClient($client, '/fake/bin/'.$client);
+    $service = npmServiceForClient($client, '/fake/bin/' . $client);
 
     expect(callProtected($service, 'buildCommand'))->toBe($expected);
 })->with([
@@ -48,7 +48,7 @@ it('decodes pure npm outdated json', function () {
 
 it('decodes json with noise on stdout', function () {
     $service = npmServiceForClient('bun');
-    $noisy = "bunx: installing npm...\n".'{"lodash":{"current":"4.17.20","latest":"4.18.1"}}'."\n";
+    $noisy = "bunx: installing npm...\n" . '{"lodash":{"current":"4.17.20","latest":"4.18.1"}}' . "\n";
 
     expect(callProtected($service, 'decodeOutput', [$noisy]))->toBe([
         'lodash' => ['current' => '4.17.20', 'latest' => '4.18.1'],
