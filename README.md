@@ -122,8 +122,8 @@ return [
 |---|---|---|
 | `DEPENDENCY_MANAGER_COMPOSER_BIN` | `null` | Path to composer binary |
 | `DEPENDENCY_MANAGER_PHP_BIN` | `null` | Path to PHP binary |
-| `DEPENDENCY_MANAGER_NPM_CLIENT` | `npm` | npm / pnpm / yarn |
-| `DEPENDENCY_MANAGER_NPM_BINARY` | `null` | Path to npm binary |
+| `DEPENDENCY_MANAGER_NPM_CLIENT` | `npm` | npm / pnpm / yarn / bun |
+| `DEPENDENCY_MANAGER_NPM_BINARY` | `null` | Path to npm / pnpm / yarn / bun binary |
 
 Example:
 
